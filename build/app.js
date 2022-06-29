@@ -14,7 +14,9 @@ const app = (0, fastify_1.default)({
 app.register(cors_1.default, {
     origin: "http://localhost:3000",
 });
-app.register(helmet_1.default);
+app.register(helmet_1.default, {
+    contentSecurityPolicy: process.env.NODE_ENV === "production" ? undefined : false,
+});
 app.register(mercurius_1.default, {
     schema: schema_1.default,
     graphiql: true,

@@ -7,8 +7,8 @@ const PORT = sanitizedConfig.PORT;
 const startServer = async () => {
   try {
     mongoConnect();
-    app.listen({ port: PORT });
 
+    app.listen({ port: PORT });
     app.log.info(`Listening on port ${PORT}`);
   } catch (err) {
     app.log.error(err);

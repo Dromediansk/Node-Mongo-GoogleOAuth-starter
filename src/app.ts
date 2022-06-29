@@ -12,7 +12,10 @@ app.register(cors, {
   origin: "http://localhost:3000",
 });
 
-app.register(helmet);
+app.register(helmet, {
+  contentSecurityPolicy:
+    process.env.NODE_ENV === "production" ? undefined : false,
+});
 
 app.register(merciurius, {
   schema,

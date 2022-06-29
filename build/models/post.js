@@ -5,7 +5,6 @@ const ObjectId = mongoose_1.Schema.Types.ObjectId;
 const postSchema = new mongoose_1.Schema({
     user_id: {
         type: ObjectId,
-        required: true,
     },
     title: {
         type: String,

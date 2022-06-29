@@ -11,12 +11,12 @@ export const getPosts = async () => {
   }
 };
 
-export const getPostByPostId = async (
+export const getPostByUserId = async (
   req: FastifyRequest<{ Params: { id: string } }>
 ) => {
   try {
-    const postId = req.params ? req.params.id : "";
-    const post = await Post.findById(postId);
+    const userId = req.params ? req.params.id : "";
+    const post = await Post.findById(userId);
 
     return post;
   } catch (err) {

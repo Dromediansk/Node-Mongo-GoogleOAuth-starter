@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deletePost = exports.createPost = exports.getPostByPostId = exports.getPosts = void 0;
+exports.deletePost = exports.createPost = exports.getPostByUserId = exports.getPosts = void 0;
 const post_1 = __importDefault(require("../models/post"));
 const getPosts = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -24,17 +24,17 @@ const getPosts = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getPosts = getPosts;
-const getPostByPostId = (req) => __awaiter(void 0, void 0, void 0, function* () {
+const getPostByUserId = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const postId = req.params ? req.params.id : "";
-        const post = yield post_1.default.findById(postId);
+        const userId = req.params ? req.params.id : "";
+        const post = yield post_1.default.findById(userId);
         return post;
     }
     catch (err) {
         console.log("err", err);
     }
 });
-exports.getPostByPostId = getPostByPostId;
+exports.getPostByUserId = getPostByUserId;
 const createPost = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const post = new post_1.default(req);

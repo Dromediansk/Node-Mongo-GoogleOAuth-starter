@@ -5,6 +5,13 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@faker-js/faker@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "@faker-js/faker@npm:7.3.0"
+  checksum: ef5b64af30ce0ec76cb22798fbbe50184946fac389b4d81235f9d8d9eaaa77d67a80f46954fa993996b7c774bae23314529a95a42a6b68794f0795976c9be82b
+  languageName: node
+  linkType: hard
+
 "@fastify/ajv-compiler@npm:^3.1.0":
   version: 3.1.0
   resolution: "@fastify/ajv-compiler@npm:3.1.0"
@@ -1869,6 +1876,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "mp-blog-v2-server@workspace:."
   dependencies:
+    "@faker-js/faker": ^7.3.0
     "@fastify/cors": ^8.0.0
     "@fastify/helmet": ^9.1.0
     "@fastify/mongodb": ^6.0.1
