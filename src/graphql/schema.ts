@@ -13,7 +13,6 @@ import {
   getNoteById,
 } from "../controllers/note";
 import { createUser, getUserById, getUserNotes } from "../controllers/user";
-import { UserType } from "../globals/types/user";
 
 const userType: GraphQLObjectType = new GraphQLObjectType({
   name: "User",
