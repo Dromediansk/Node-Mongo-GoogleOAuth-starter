@@ -1,5 +1,5 @@
 import { boomify } from "@hapi/boom";
-import { Request } from "express";
+import { Request, Response } from "express";
 import Note from "../../models/note";
 import User from "../../models/user";
 
@@ -13,34 +13,34 @@ export const getAllUsers = async () => {
   }
 };
 
-export const createUser = async (req: Request) => {
+export const createUser = async (req: Request, res: Response) => {
   try {
-    const user = new User(req);
+    const user = new User(req.body);
     const savedUser = await user.save();
 
-    return savedUser;
+    return res.json(savedUser);
   } catch (err) {
     throw boomify(err as Error);
   }
 };
 
-export const getUserById = async (req: Request) => {
+export const getUserById = async (req: Request, res: Response) => {
   try {
-    const id = req.params ? req.params.userId : "";
+    const id = req.params ? req.params.id : "";
     const user = await User.findById(id);
 
-    return user;
+    return res.json(user);
   } catch (err) {
     throw boomify(err as Error);
   }
 };
 
-export const getUserNotes = async (req: Request) => {
+export const getUserNotesByUserId = async (req: Request, res: Response) => {
   try {
-    const userId = req.params ? req.params.userId : "";
-    const notes = await Note.find({ user_id: userId });
+    const id = req.params ? req.params.id : "";
+    const notes = await Note.find({ user_id: id });
 
-    return notes;
+    return res.json(notes);
   } catch (err) {
     throw boomify(err as Error);
   }

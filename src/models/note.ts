@@ -20,12 +20,12 @@ const noteSchema = new Schema({
     required: true,
   },
   publishedDate: {
-    type: Date,
+    type: String,
     required: true,
   },
   user_id: {
     type: ObjectId,
-    required: true,
+    // required: true,
   },
   services: {
     type: Map,
