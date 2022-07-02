@@ -27,6 +27,10 @@ const noteSchema = new Schema({
     type: ObjectId,
     required: true,
   },
+  services: {
+    type: Map,
+    of: String,
+  },
 });
 
 const Note = model("Note", noteSchema);
