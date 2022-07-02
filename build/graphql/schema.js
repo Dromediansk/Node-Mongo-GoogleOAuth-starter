@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const graphql_1 = require("graphql");
-const post_1 = require("../controllers/post");
+const note_1 = require("../controllers/note");
 const user_1 = require("../controllers/user");
 const userType = new graphql_1.GraphQLObjectType({
     name: "User",
@@ -19,22 +19,23 @@ const userType = new graphql_1.GraphQLObjectType({
         firstName: { type: graphql_1.GraphQLString },
         lastName: { type: graphql_1.GraphQLString },
         email: { type: graphql_1.GraphQLString },
-        posts: {
-            type: new graphql_1.GraphQLList(postType),
+        notes: {
+            type: new graphql_1.GraphQLList(noteType),
             resolve(parent, args) {
                 return __awaiter(this, void 0, void 0, function* () {
-                    return yield (0, post_1.getPostByUserId)(parent.id);
+                    return yield (0, user_1.getUserNotes)(parent.id);
                 });
             },
         },
     }),
 });
-const postType = new graphql_1.GraphQLObjectType({
-    name: "Post",
+const noteType = new graphql_1.GraphQLObjectType({
+    name: "Note",
     fields: () => ({
         id: { type: graphql_1.GraphQLID },
         title: { type: graphql_1.GraphQLString },
         body: { type: graphql_1.GraphQLString },
+        keywords: { type: new graphql_1.GraphQLList(graphql_1.GraphQLString) },
         category: { type: graphql_1.GraphQLString },
         publishedDate: { type: graphql_1.GraphQLString },
         user_id: { type: graphql_1.GraphQLID },
@@ -51,20 +52,12 @@ const postType = new graphql_1.GraphQLObjectType({
 const RootQuery = new graphql_1.GraphQLObjectType({
     name: "RootQueryType",
     fields: {
-        post: {
-            type: postType,
+        note: {
+            type: noteType,
             args: { id: { type: graphql_1.GraphQLID } },
             resolve(parent, args) {
                 return __awaiter(this, void 0, void 0, function* () {
-                    return yield (0, post_1.getPostByUserId)(args);
-                });
-            },
-        },
-        posts: {
-            type: new graphql_1.GraphQLList(postType),
-            resolve(parent, args) {
-                return __awaiter(this, void 0, void 0, function* () {
-                    return yield (0, post_1.getPosts)();
+                    return yield (0, note_1.getNoteById)(args);
                 });
             },
         },
@@ -82,32 +75,61 @@ const RootQuery = new graphql_1.GraphQLObjectType({
 const Mutations = new graphql_1.GraphQLObjectType({
     name: "Mutations",
     fields: {
-        createPost: {
-            type: postType,
+        createNote: {
+            type: noteType,
             args: {
                 title: { type: new graphql_1.GraphQLNonNull(graphql_1.GraphQLString) },
                 body: { type: new graphql_1.GraphQLNonNull(graphql_1.GraphQLString) },
+                keywords: { type: new graphql_1.GraphQLNonNull(new graphql_1.GraphQLList(graphql_1.GraphQLString)) },
                 category: { type: new graphql_1.GraphQLNonNull(graphql_1.GraphQLString) },
                 publishedDate: { type: new graphql_1.GraphQLNonNull(graphql_1.GraphQLString) },
                 user_id: { type: graphql_1.GraphQLID },
             },
             resolve(parent, args) {
                 return __awaiter(this, void 0, void 0, function* () {
-                    console.log("args", args);
-                    const data = yield (0, post_1.createPost)(args);
-                    return data;
+                    const note = yield (0, note_1.createNote)(args);
+                    return note;
                 });
             },
         },
-        deletePost: {
-            type: postType,
+        editNote: {
+            type: noteType,
+            args: {
+                title: { type: graphql_1.GraphQLString },
+                body: { type: graphql_1.GraphQLString },
+                keywords: { type: new graphql_1.GraphQLList(graphql_1.GraphQLString) },
+                category: { type: graphql_1.GraphQLString },
+            },
+            resolve(parent, args) {
+                return __awaiter(this, void 0, void 0, function* () {
+                    const note = yield (0, note_1.editNote)(args);
+                    return note;
+                });
+            },
+        },
+        deleteNote: {
+            type: noteType,
             args: {
                 id: { type: new graphql_1.GraphQLNonNull(graphql_1.GraphQLID) },
             },
             resolve(parent, args) {
                 return __awaiter(this, void 0, void 0, function* () {
-                    const data = yield (0, post_1.deletePost)(args);
+                    const data = yield (0, note_1.deleteNote)(args);
                     return data;
+                });
+            },
+        },
+        createUser: {
+            type: userType,
+            args: {
+                firstName: { type: new graphql_1.GraphQLNonNull(graphql_1.GraphQLString) },
+                lastName: { type: new graphql_1.GraphQLNonNull(graphql_1.GraphQLString) },
+                email: { type: new graphql_1.GraphQLNonNull(graphql_1.GraphQLString) },
+            },
+            resolve(parent, args) {
+                return __awaiter(this, void 0, void 0, function* () {
+                    const user = yield (0, user_1.createUser)(args);
+                    return user;
                 });
             },
         },

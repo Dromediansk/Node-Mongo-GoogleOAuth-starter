@@ -1,6 +1,20 @@
 import { FastifyRequest } from "fastify";
 import User from "../models/user";
-import Post from "../models/post";
+import Note from "../models/note";
+import { UserType } from "../globals/types/user";
+
+export const createUser = async (
+  req: FastifyRequest<{ Params: { user: UserType } }>
+) => {
+  try {
+    const user = new User(req);
+    const savedUser = await user.save();
+
+    return savedUser;
+  } catch (err) {
+    console.log("err", err);
+  }
+};
 
 export const getUsers = async () => {
   try {
@@ -25,14 +39,14 @@ export const getUserById = async (
   }
 };
 
-export const getUserPosts = async (
+export const getUserNotes = async (
   req: FastifyRequest<{ Params: { userId: string } }>
 ) => {
   try {
     const userId = req.params ? req.params.userId : "";
-    const posts = await Post.find({ user_id: userId });
+    const notes = await Note.find({ user_id: userId });
 
-    return posts;
+    return notes;
   } catch (err) {
     console.log("err", err);
   }

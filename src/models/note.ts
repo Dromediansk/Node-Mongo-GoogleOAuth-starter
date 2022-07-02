@@ -2,11 +2,8 @@ import { Schema, model } from "mongoose";
 
 const ObjectId = Schema.Types.ObjectId;
 
-const postSchema = new Schema({
-  user_id: {
-    type: ObjectId,
-    required: true,
-  },
+const noteSchema = new Schema({
+  id: { type: ObjectId },
   title: {
     type: String,
     required: true,
@@ -14,6 +11,9 @@ const postSchema = new Schema({
   body: {
     type: String,
     required: true,
+  },
+  keywords: {
+    tags: [{ type: String, required: true }],
   },
   category: {
     type: String,
@@ -23,8 +23,12 @@ const postSchema = new Schema({
     type: Date,
     required: true,
   },
+  user_id: {
+    type: ObjectId,
+    required: true,
+  },
 });
 
-const Post = model("Post", postSchema);
+const Note = model("Note", noteSchema);
 
-export default Post;
+export default Note;

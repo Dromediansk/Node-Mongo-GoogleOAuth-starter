@@ -1872,28 +1872,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mp-blog-v2-server@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "mp-blog-v2-server@workspace:."
-  dependencies:
-    "@faker-js/faker": ^7.3.0
-    "@fastify/cors": ^8.0.0
-    "@fastify/helmet": ^9.1.0
-    "@fastify/mongodb": ^6.0.1
-    "@types/node": ^18.0.0
-    "@types/ws": ^8.5.3
-    concurrently: ^7.2.2
-    dotenv: ^16.0.1
-    fastify: ^4.1.0
-    fastify-plugin: ^3.0.1
-    graphql: ^16.5.0
-    mercurius: ^10.0.0
-    mongoose: ^6.4.0
-    nodemon: ^2.0.18
-    typescript: ^4.7.4
-  languageName: unknown
-  linkType: soft
-
 "mpath@npm:0.9.0":
   version: 0.9.0
   resolution: "mpath@npm:0.9.0"
@@ -2445,6 +2423,28 @@ __metadata:
   checksum: efaafcaa08a4646ca829b29168474f57fb289a0ca7a1d77b66b55a0292785bc6eb9143b21cfc50b37dd12a823c25b12aa1771f18314ed5a616a1f8f12a318533
   languageName: node
   linkType: hard
+
+"self-improver-notepad-api@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "self-improver-notepad-api@workspace:."
+  dependencies:
+    "@faker-js/faker": ^7.3.0
+    "@fastify/cors": ^8.0.0
+    "@fastify/helmet": ^9.1.0
+    "@fastify/mongodb": ^6.0.1
+    "@types/node": ^18.0.0
+    "@types/ws": ^8.5.3
+    concurrently: ^7.2.2
+    dotenv: ^16.0.1
+    fastify: ^4.1.0
+    fastify-plugin: ^3.0.1
+    graphql: ^16.5.0
+    mercurius: ^10.0.0
+    mongoose: ^6.4.0
+    nodemon: ^2.0.18
+    typescript: ^4.7.4
+  languageName: unknown
+  linkType: soft
 
 "semver-diff@npm:^3.1.1":
   version: 3.1.1

@@ -12,9 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserPosts = exports.getUserById = exports.getUsers = void 0;
+exports.getUserNotes = exports.getUserById = exports.getUsers = exports.createUser = void 0;
 const user_1 = __importDefault(require("../models/user"));
-const post_1 = __importDefault(require("../models/post"));
+const note_1 = __importDefault(require("../models/note"));
+const createUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = new user_1.default(req);
+        const savedUser = yield user.save();
+        return savedUser;
+    }
+    catch (err) {
+        console.log("err", err);
+    }
+});
+exports.createUser = createUser;
 const getUsers = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const users = yield user_1.default.find();
@@ -36,15 +47,15 @@ const getUserById = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getUserById = getUserById;
-const getUserPosts = (req) => __awaiter(void 0, void 0, void 0, function* () {
+const getUserNotes = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.params ? req.params.userId : "";
-        const posts = yield post_1.default.find({ user_id: userId });
-        return posts;
+        const notes = yield note_1.default.find({ user_id: userId });
+        return notes;
     }
     catch (err) {
         console.log("err", err);
     }
 });
-exports.getUserPosts = getUserPosts;
+exports.getUserNotes = getUserNotes;
 //# sourceMappingURL=user.js.map

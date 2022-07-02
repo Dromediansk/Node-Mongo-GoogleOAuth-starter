@@ -1,20 +1,19 @@
 import {
-  graphql,
   GraphQLSchema,
   GraphQLObjectType,
   GraphQLString,
-  GraphQLInt,
   GraphQLID,
   GraphQLList,
   GraphQLNonNull,
 } from "graphql";
 import {
-  getPostByUserId,
-  getPosts,
-  createPost,
-  deletePost,
-} from "../controllers/post";
-import { getUserById } from "../controllers/user";
+  createNote,
+  deleteNote,
+  editNote,
+  getNoteById,
+} from "../controllers/note";
+import { createUser, getUserById, getUserNotes } from "../controllers/user";
+import { UserType } from "../globals/types/user";
 
 const userType: GraphQLObjectType = new GraphQLObjectType({
   name: "User",
@@ -23,21 +22,22 @@ const userType: GraphQLObjectType = new GraphQLObjectType({
     firstName: { type: GraphQLString },
     lastName: { type: GraphQLString },
     email: { type: GraphQLString },
-    posts: {
-      type: new GraphQLList(postType),
+    notes: {
+      type: new GraphQLList(noteType),
       async resolve(parent, args) {
-        return await getPostByUserId(parent.id);
+        return await getUserNotes(parent.id);
       },
     },
   }),
 });
 
-const postType: GraphQLObjectType = new GraphQLObjectType({
-  name: "Post",
+const noteType: GraphQLObjectType = new GraphQLObjectType({
+  name: "Note",
   fields: () => ({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
     body: { type: GraphQLString },
+    keywords: { type: new GraphQLList(GraphQLString) },
     category: { type: GraphQLString },
     publishedDate: { type: GraphQLString },
     user_id: { type: GraphQLID },
@@ -53,17 +53,11 @@ const postType: GraphQLObjectType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
-    post: {
-      type: postType,
+    note: {
+      type: noteType,
       args: { id: { type: GraphQLID } },
       async resolve(parent, args) {
-        return await getPostByUserId(args);
-      },
-    },
-    posts: {
-      type: new GraphQLList(postType),
-      async resolve(parent, args) {
-        return await getPosts();
+        return await getNoteById(args);
       },
     },
     user: {
@@ -79,29 +73,54 @@ const RootQuery = new GraphQLObjectType({
 const Mutations = new GraphQLObjectType({
   name: "Mutations",
   fields: {
-    createPost: {
-      type: postType,
+    createNote: {
+      type: noteType,
       args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
         body: { type: new GraphQLNonNull(GraphQLString) },
+        keywords: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },
         category: { type: new GraphQLNonNull(GraphQLString) },
         publishedDate: { type: new GraphQLNonNull(GraphQLString) },
         user_id: { type: GraphQLID },
       },
       async resolve(parent, args) {
-        console.log("args", args);
-        const data = await createPost(args);
-        return data;
+        const note = await createNote(args);
+        return note;
       },
     },
-    deletePost: {
-      type: postType,
+    editNote: {
+      type: noteType,
+      args: {
+        title: { type: GraphQLString },
+        body: { type: GraphQLString },
+        keywords: { type: new GraphQLList(GraphQLString) },
+        category: { type: GraphQLString },
+      },
+      async resolve(parent, args) {
+        const note = await editNote(args);
+        return note;
+      },
+    },
+    deleteNote: {
+      type: noteType,
       args: {
         id: { type: new GraphQLNonNull(GraphQLID) },
       },
       async resolve(parent, args) {
-        const data = await deletePost(args);
+        const data = await deleteNote(args);
         return data;
+      },
+    },
+    createUser: {
+      type: userType,
+      args: {
+        firstName: { type: new GraphQLNonNull(GraphQLString) },
+        lastName: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      async resolve(parent, args) {
+        const user = await createUser(args);
+        return user;
       },
     },
   },
