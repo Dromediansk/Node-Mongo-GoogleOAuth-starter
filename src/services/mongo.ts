@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import { boomify } from "@hapi/boom";
+import mongoose, { Error } from "mongoose";
 import sanitizedConfig from "../utils/config";
 
 const MONGO_URI = sanitizedConfig.MONGO_URI;
@@ -8,7 +9,7 @@ mongoose.connection.once("open", () => {
 });
 
 mongoose.connection.on("error", (err) => {
-  throw new Error(err);
+  throw boomify(err as Error);
 });
 
 export const mongoConnect = async () => {

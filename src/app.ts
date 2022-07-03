@@ -1,10 +1,10 @@
-import express from "express";
+import express, { Application } from "express";
 import morgan from "morgan";
 import cors from "cors";
 import helmet from "helmet";
 import api from "./routes/api";
 
-const app = express();
+const app: Application = express();
 
 app.use(morgan("combined"));
 
@@ -14,14 +14,14 @@ app.use(
   })
 );
 
-app.use(
-  helmet({
-    contentSecurityPolicy:
-      process.env.NODE_ENV === "production" ? undefined : false,
-  })
-);
+app.use(helmet());
 
 app.use(express.json());
-app.use("/", api);
+app.use(express.urlencoded({ extended: true }));
+
+app.get("/", (req, res) => {
+  return res.send("Hello there");
+});
+app.use("/api", api);
 
 export default app;

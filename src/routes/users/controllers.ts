@@ -3,11 +3,11 @@ import { Request, Response } from "express";
 import Note from "../../models/note";
 import User from "../../models/user";
 
-export const getAllUsers = async () => {
+export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.find();
 
-    return users;
+    return res.json(users);
   } catch (err) {
     throw boomify(err as Error);
   }
