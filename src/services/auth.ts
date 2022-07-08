@@ -1,16 +1,35 @@
 import { NextFunction, Request, Response } from "express";
+import passport from "passport";
+import {
+  Strategy,
+  StrategyOptions,
+  Profile,
+  VerifyCallback,
+} from "passport-google-oauth20";
+import sanitizedConfig from "../utils/config";
 
-const config = {
-  CLIENT_ID: process.env.CLIENT_ID,
-  CLIENT_SECRET: process.env.CLIENT_SECRET,
-  COOKIE_KEY_1: process.env.COOKIE_KEY_1,
-  COOKIE_KEY_2: process.env.COOKIE_KEY_2,
+const AUTH_OPTIONS: StrategyOptions = {
+  callbackURL: "/auth/google/callback",
+  clientID: sanitizedConfig.CLIENT_ID,
+  clientSecret: sanitizedConfig.CLIENT_SECRET,
 };
 
-const AUTH_OPTIONS = {
-  callbackURL: "/auth/google/callback",
-  clientID: config.CLIENT_ID,
-  clientSecret: config.CLIENT_SECRET,
+export const initializeAuthProcess = () => {
+  /**
+   * Wrapping up authorisation process:
+   * Here we can verify credentials or user profile data with our db, etc.
+   */
+  const verifyCallback = (
+    accessToken: string,
+    refreshToken: string,
+    profile: Profile,
+    done: VerifyCallback
+  ) => {
+    console.log("Google profile", profile);
+    done(null, profile);
+  };
+
+  passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
 };
 
 export const isAuthenticated = (

@@ -11,6 +11,8 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 interface ENV {
   PORT: number | undefined;
   MONGO_URI: string;
+  CLIENT_ID: string;
+  CLIENT_SECRET: string;
 }
 
 type Config = Required<ENV>;
@@ -21,6 +23,8 @@ const getConfig = (): ENV => {
   return {
     PORT: process.env.PORT ? Number(process.env.PORT) : undefined,
     MONGO_URI: process.env.MONGO_URI,
+    CLIENT_ID: process.env.CLIENT_ID ?? "",
+    CLIENT_SECRET: process.env.CLIENT_SECRET ?? "",
   };
 };
 
