@@ -1,5 +1,4 @@
-import cookieSession from "cookie-session";
-import { Application, NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import passport from "passport";
 import {
   Strategy,
@@ -11,7 +10,7 @@ import User from "../models/user";
 import { createUser } from "../routes/users/controllers";
 import sanitizedConfig from "../utils/config";
 
-interface SessionUser {
+interface SerializedUser {
   id: string;
   name: {
     familyName: string;
@@ -46,34 +45,29 @@ export const setupPassportStrategy = () => {
 
   // Save the session to the cookie
   passport.serializeUser((user, done) => {
-    done(null, { id: user.id, name: user.name, emails: user.emails });
+    try {
+      done(null, { id: user.id, name: user.name, emails: user.emails });
+    } catch (err) {
+      done(err);
+    }
   });
 
   // Read the session from the cookie
-  passport.deserializeUser(async (user: SessionUser, done) => {
-    const { id, name, emails } = user;
+  passport.deserializeUser(async (user: SerializedUser, done) => {
+    try {
+      const { id, name, emails } = user;
 
-    const userExists = !!(await User.findOne({ googleId: id }));
+      const userExists = !!(await User.findOne({ googleId: id }));
 
-    if (!userExists) {
-      const newUser = { googleId: id, ...name, email: emails[0].value };
-      await createUser(newUser);
+      if (!userExists) {
+        const newUser = { googleId: id, ...name, email: emails[0].value };
+        await createUser(newUser);
+      }
+      done(null, user);
+    } catch (err) {
+      done(err);
     }
-
-    done(null, user);
   });
-};
-
-export const initializeCookieSession = (app: Application) => {
-  app.use(
-    cookieSession({
-      name: "session",
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-      keys: [sanitizedConfig.COOKIE_KEY_1, sanitizedConfig.COOKIE_KEY_2], // should be generated and hard to guess
-    })
-  );
-  app.use(passport.initialize());
-  app.use(passport.session());
 };
 
 export const isAuthenticated = (
