@@ -13,6 +13,8 @@ interface ENV {
   MONGO_URI: string;
   CLIENT_ID: string;
   CLIENT_SECRET: string;
+  COOKIE_KEY_1: string;
+  COOKIE_KEY_2: string;
 }
 
 type Config = Required<ENV>;
@@ -25,6 +27,8 @@ const getConfig = (): ENV => {
     MONGO_URI: process.env.MONGO_URI,
     CLIENT_ID: process.env.CLIENT_ID ?? "",
     CLIENT_SECRET: process.env.CLIENT_SECRET ?? "",
+    COOKIE_KEY_1: process.env.COOKIE_KEY_1 ?? "",
+    COOKIE_KEY_2: process.env.COOKIE_KEY_2 ?? "",
   };
 };
 

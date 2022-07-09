@@ -4,3 +4,9 @@ declare namespace NodeJS {
     MONGO_URI: string;
   }
 }
+
+declare namespace Express {
+  interface User {
+    id: string;
+  }
+}

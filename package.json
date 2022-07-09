@@ -12,6 +12,7 @@
   "dependencies": {
     "@hapi/boom": "^10.0.0",
     "concurrently": "^7.2.2",
+    "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
     "dayjs": "^1.11.3",
     "dotenv": "^16.0.1",
@@ -19,10 +20,11 @@
     "helmet": "^5.1.0",
     "mongoose": "^6.4.4",
     "morgan": "^1.10.0",
-    "passport": "^0.6.0",
+    "passport": "^0.5.3",
     "passport-google-oauth20": "^2.0.0"
   },
   "devDependencies": {
+    "@types/cookie-session": "^2.0.44",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/morgan": "^1.9.3",

@@ -25,7 +25,6 @@ export const initializeAuthProcess = () => {
     profile: Profile,
     done: VerifyCallback
   ) => {
-    console.log("Google profile", profile);
     done(null, profile);
   };
 
@@ -37,7 +36,8 @@ export const isAuthenticated = (
   res: Response,
   next: NextFunction
 ) => {
-  const isLoggedIn = true; // TODO
+  console.log("current user is: ", req.user);
+  const isLoggedIn = req.isAuthenticated() && req.user;
 
   if (!isLoggedIn) {
     return res.status(401).json({
