@@ -15,7 +15,7 @@ export const loginFailed = (req: Request, res: Response) => {
 };
 
 export const redirectToGoogleLogin = passport.authenticate("google", {
-  scope: ["email"],
+  scope: ["profile", "email"],
 });
 
 export const logout = (req: Request, res: Response) => {

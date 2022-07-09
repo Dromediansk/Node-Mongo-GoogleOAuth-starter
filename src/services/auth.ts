@@ -7,7 +7,20 @@ import {
   Profile,
   VerifyCallback,
 } from "passport-google-oauth20";
+import User from "../models/user";
+import { createUser } from "../routes/users/controllers";
 import sanitizedConfig from "../utils/config";
+
+interface SessionUser {
+  id: string;
+  name: {
+    familyName: string;
+    givenName: string;
+  };
+  emails: {
+    value: string;
+  }[];
+}
 
 const AUTH_OPTIONS: StrategyOptions = {
   callbackURL: "/auth/google/callback",
@@ -33,12 +46,21 @@ export const setupPassportStrategy = () => {
 
   // Save the session to the cookie
   passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, { id: user.id, name: user.name, emails: user.emails });
   });
 
   // Read the session from the cookie
-  passport.deserializeUser((id: string, done) => {
-    done(null, { id });
+  passport.deserializeUser(async (user: SessionUser, done) => {
+    const { id, name, emails } = user;
+
+    const userExists = !!(await User.findOne({ googleId: id }));
+
+    if (!userExists) {
+      const newUser = { googleId: id, ...name, email: emails[0].value };
+      await createUser(newUser);
+    }
+
+    done(null, user);
   });
 };
 

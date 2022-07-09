@@ -1,5 +1,6 @@
 import { boomify } from "@hapi/boom";
 import { Request, Response } from "express";
+import { UserType } from "../../globals/types/user";
 import Note from "../../models/note";
 import User from "../../models/user";
 
@@ -13,12 +14,10 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (user: UserType) => {
   try {
-    const user = new User(req.body);
-    const savedUser = await user.save();
-
-    return res.json(savedUser);
+    const newUser = new User(user);
+    await newUser.save();
   } catch (err) {
     throw boomify(err as Error);
   }
