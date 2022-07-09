@@ -6,6 +6,7 @@ import api from "./routes/api";
 import path from "path";
 import { isAuthenticated } from "./services/auth";
 import authRouter from "./routes/auth/router";
+import passport from "passport";
 
 const app: Application = express();
 
@@ -18,6 +19,7 @@ app.use(
 );
 
 app.use(helmet());
+app.use(passport.initialize());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

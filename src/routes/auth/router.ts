@@ -1,6 +1,7 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
+import passport from "passport";
 import {
-  handleAuthenticatedWithGoogle,
+  authWithGoogle,
   redirectToGoogleLogin,
   handleGoogleCallbackSuccess,
   loginFailed,
@@ -10,11 +11,7 @@ import {
 const authRouter = Router();
 
 authRouter.get("/google", redirectToGoogleLogin);
-authRouter.get(
-  "/google/callback",
-  handleAuthenticatedWithGoogle,
-  handleGoogleCallbackSuccess
-);
+authRouter.get("/google/callback", authWithGoogle, handleGoogleCallbackSuccess);
 authRouter.get("/failure", loginFailed);
 authRouter.get("/logout", logout);
 
