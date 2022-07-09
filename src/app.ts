@@ -4,21 +4,8 @@ import cors from "cors";
 import helmet from "helmet";
 import api from "./routes/api";
 import path from "path";
-import { isAuthenticated } from "./services/auth";
+import { initializeCookieSession, isAuthenticated } from "./services/auth";
 import authRouter from "./routes/auth/router";
-import passport from "passport";
-import cookieSession from "cookie-session";
-import sanitizedConfig from "./utils/config";
-
-// Save the session to the cookie
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-// Read the session from the cookie
-passport.deserializeUser((id: string, done) => {
-  done(null, { id });
-});
 
 const app: Application = express();
 
@@ -32,15 +19,7 @@ app.use(
 
 app.use(helmet());
 
-app.use(
-  cookieSession({
-    name: "session",
-    maxAge: 24 * 60 * 60 * 1000, // 1 day
-    keys: [sanitizedConfig.COOKIE_KEY_1, sanitizedConfig.COOKIE_KEY_2], // should be generated and hard to guess
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
+initializeCookieSession(app);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

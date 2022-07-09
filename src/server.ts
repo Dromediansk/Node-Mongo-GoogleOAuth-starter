@@ -4,7 +4,7 @@ import sanitizedConfig from "./utils/config";
 import app from "./app";
 import { mongoConnect } from "./services/mongo";
 import { boomify } from "@hapi/boom";
-import { initializeAuthProcess } from "./services/auth";
+import { setupPassportStrategy } from "./services/auth";
 
 const server = https.createServer(
   {
@@ -17,7 +17,7 @@ const server = https.createServer(
 const PORT = sanitizedConfig.PORT;
 const startServer = async () => {
   try {
-    initializeAuthProcess();
+    setupPassportStrategy();
     mongoConnect();
 
     server.listen(PORT, () => {

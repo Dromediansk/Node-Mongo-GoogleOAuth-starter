@@ -1,4 +1,5 @@
-import { NextFunction, Request, Response } from "express";
+import cookieSession from "cookie-session";
+import { Application, NextFunction, Request, Response } from "express";
 import passport from "passport";
 import {
   Strategy,
@@ -14,7 +15,7 @@ const AUTH_OPTIONS: StrategyOptions = {
   clientSecret: sanitizedConfig.CLIENT_SECRET,
 };
 
-export const initializeAuthProcess = () => {
+export const setupPassportStrategy = () => {
   /**
    * Wrapping up authorisation process:
    * Here we can verify credentials or user profile data with our db, etc.
@@ -29,6 +30,28 @@ export const initializeAuthProcess = () => {
   };
 
   passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
+
+  // Save the session to the cookie
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+
+  // Read the session from the cookie
+  passport.deserializeUser((id: string, done) => {
+    done(null, { id });
+  });
+};
+
+export const initializeCookieSession = (app: Application) => {
+  app.use(
+    cookieSession({
+      name: "session",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      keys: [sanitizedConfig.COOKIE_KEY_1, sanitizedConfig.COOKIE_KEY_2], // should be generated and hard to guess
+    })
+  );
+  app.use(passport.initialize());
+  app.use(passport.session());
 };
 
 export const isAuthenticated = (
