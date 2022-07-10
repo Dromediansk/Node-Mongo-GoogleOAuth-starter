@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { Error } from "mongoose";
 import passport from "passport";
 import {
   Strategy,
@@ -6,69 +7,59 @@ import {
   Profile,
   VerifyCallback,
 } from "passport-google-oauth20";
-import User from "../models/user";
-import { createUser } from "../routes/users/controllers";
+import User, { UserDocument } from "../models/user";
 import sanitizedConfig from "../utils/config";
 
-interface SerializedUser {
-  id: string;
-  name: {
-    familyName: string;
-    givenName: string;
-  };
-  emails: {
-    value: string;
-  }[];
-}
+/**
+ * Wrapping up authorisation process:
+ * Here we can verify credentials or user profile data with our db, etc.
+ */
+const verifyCallback = async (
+  accessToken: string,
+  refreshToken: string,
+  profile: Profile,
+  done: VerifyCallback
+) => {
+  User.findOne(
+    { googleId: profile.id },
+    async (err: Error, user: UserDocument) => {
+      if (err) {
+        return done(err);
+      }
+
+      if (user) {
+        return done(null, user);
+      }
+
+      const newUser = new User({
+        googleId: profile.id,
+        familyName: profile.name?.familyName || "",
+        givenName: profile.name?.givenName || "",
+        email: profile.emails ? profile.emails[0].value : "",
+      });
+      await newUser.save();
+
+      return done(null, newUser);
+    }
+  );
+};
 
 const AUTH_OPTIONS: StrategyOptions = {
   callbackURL: "/auth/google/callback",
   clientID: sanitizedConfig.CLIENT_ID,
   clientSecret: sanitizedConfig.CLIENT_SECRET,
 };
+passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
 
-export const setupPassportStrategy = () => {
-  /**
-   * Wrapping up authorisation process:
-   * Here we can verify credentials or user profile data with our db, etc.
-   */
-  const verifyCallback = (
-    accessToken: string,
-    refreshToken: string,
-    profile: Profile,
-    done: VerifyCallback
-  ) => {
-    done(null, profile);
-  };
+// Save the session to the cookie
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
 
-  passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
-
-  // Save the session to the cookie
-  passport.serializeUser((user, done) => {
-    try {
-      done(null, { id: user.id, name: user.name, emails: user.emails });
-    } catch (err) {
-      done(err);
-    }
-  });
-
-  // Read the session from the cookie
-  passport.deserializeUser(async (user: SerializedUser, done) => {
-    try {
-      const { id, name, emails } = user;
-
-      const userExists = !!(await User.findOne({ googleId: id }));
-
-      if (!userExists) {
-        const newUser = { googleId: id, ...name, email: emails[0].value };
-        await createUser(newUser);
-      }
-      done(null, user);
-    } catch (err) {
-      done(err);
-    }
-  });
-};
+// Read the session from the cookie
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err: Error, user: UserDocument) => done(err, user));
+});
 
 export const isAuthenticated = (
   req: Request,
@@ -80,7 +71,7 @@ export const isAuthenticated = (
 
   if (!isLoggedIn) {
     return res.status(401).json({
-      error: "You must be logged in!",
+      message: "You must be logged in!",
     });
   }
   next();

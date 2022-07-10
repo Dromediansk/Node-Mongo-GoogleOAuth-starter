@@ -1,4 +1,4 @@
-export type UserType = {
+export type UserBodyType = {
   googleId: string;
   familyName: string;
   givenName: string;

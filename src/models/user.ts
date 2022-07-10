@@ -1,6 +1,14 @@
-import { Schema, model } from "mongoose";
+import { Schema, Document, model } from "mongoose";
 
-const userSchema = new Schema({
+export type UserDocument = Document & {
+  id: string;
+  googleId: string;
+  email: string;
+  familyName: string;
+  givenName: string;
+};
+
+const userSchema = new Schema<UserDocument>({
   googleId: {
     type: String,
     required: true,

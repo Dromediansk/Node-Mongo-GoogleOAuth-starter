@@ -25,7 +25,7 @@ const noteSchema = new Schema({
   },
   user_id: {
     type: ObjectId,
-    // required: true,
+    required: true,
   },
   services: {
     type: Map,

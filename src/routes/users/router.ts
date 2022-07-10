@@ -1,11 +1,6 @@
 import express from "express";
 
-import {
-  createUser,
-  getAllUsers,
-  getUserById,
-  getUserNotesByUserId,
-} from "./controllers";
+import { getAllUsers, getUserById, getUserNotesByUserId } from "./controllers";
 
 const usersRouter = express.Router();
 

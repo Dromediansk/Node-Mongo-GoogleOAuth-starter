@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { boomify } from "@hapi/boom";
 import { Error } from "mongoose";
 import dayjs from "dayjs";
+import { NoteBodyType } from "../../globals/types/note";
 
 export const getAllNotes = async (req: Request, res: Response) => {
   try {
@@ -25,15 +26,22 @@ export const getNoteById = async (req: Request, res: Response) => {
   }
 };
 
-export const createNote = async (req: Request, res: Response) => {
+export const createNote = async (
+  req: Request<{}, {}, NoteBodyType>,
+  res: Response
+) => {
   try {
+    if (!req.body.title || !req.body.body) {
+      return res.status(404).json({ message: "wrong input!" });
+    }
     const publishedDate = dayjs().format("YYYY-MM");
     const note = new Note({ ...req.body, publishedDate });
     const createdNote = await note.save();
 
     return res.json(createdNote);
   } catch (err) {
-    throw boomify(err as Error);
+    console.log(err);
+    return res.status(500).json({ message: "Something went wrong!" });
   }
 };
 

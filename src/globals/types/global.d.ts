@@ -8,12 +8,5 @@ declare namespace NodeJS {
 declare namespace Express {
   interface User {
     id: string;
-    name?: {
-      familyName: string;
-      givenName: string;
-    };
-    emails?: {
-      value: string;
-    }[];
   }
 }
