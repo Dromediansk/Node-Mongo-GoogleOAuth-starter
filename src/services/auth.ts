@@ -31,15 +31,22 @@ const verifyCallback = async (
         return done(null, user);
       }
 
-      const newUser = new User({
-        googleId: profile.id,
-        familyName: profile.name?.familyName || "",
-        givenName: profile.name?.givenName || "",
-        email: profile.emails ? profile.emails[0].value : "",
-      });
-      await newUser.save();
+      try {
+        const newUser = new User({
+          googleId: profile.id,
+          familyName: profile.name?.familyName || "",
+          givenName: profile.name?.givenName || "",
+          email: profile.emails ? profile.emails[0].value : "",
+        });
+        await newUser.save();
 
-      return done(null, newUser);
+        return done(null, newUser);
+      } catch (error) {
+        if (error instanceof Error) {
+          return done(error);
+        }
+        console.log(error);
+      }
     }
   );
 };
