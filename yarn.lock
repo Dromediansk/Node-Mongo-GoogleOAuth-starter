@@ -144,10 +144,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.0.6":
-  version: 18.0.6
-  resolution: "@types/node@npm:18.0.6"
-  checksum: 780f8885a6b6eb12f4c0246617747fdc37a451931b3c01ce8148d356c0903b705dcb16cc6a914de63d48b0dc1b002c7a3dfae681f580e1761aa551d3cd996813
+"@types/node@npm:^18.7.14":
+  version: 18.7.14
+  resolution: "@types/node@npm:18.7.14"
+  checksum: 99cf28ff854100158de875cca23c7acc3cc01dfee526a52b90b7f36767c821bcbaf2be0a98a70f06f3b78f3c60639168ff949d725b61e2e124f9f71f1fb8043d
   languageName: node
   linkType: hard
 
@@ -414,12 +414,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bson@npm:^4.6.2, bson@npm:^4.6.3":
-  version: 4.6.4
-  resolution: "bson@npm:4.6.4"
+"bson@npm:^4.6.5":
+  version: 4.7.0
+  resolution: "bson@npm:4.7.0"
   dependencies:
     buffer: ^5.6.0
-  checksum: f56375865c8fc048179075296019a0d2e058edbbb6692e54e2751da738840968de678a48a2276faf2ec8f8b36c5c26f14670ab4d414fe68f0169215efe15d570
+  checksum: 83e7b64afdad5a505073a7e6206e7b345f59e7888fbcb1948fba72b6101a1baf58b7499314f8e24b650567665f7973eda048aabbb1ddcfbadfba7d6c6b0f5e83
   languageName: node
   linkType: hard
 
@@ -657,10 +657,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.4":
-  version: 1.11.4
-  resolution: "dayjs@npm:1.11.4"
-  checksum: 478c8a2db9e3fc752db9f02ef23f00e12308eebbeb85569913731ea78e8d5616f2335e14f25af48e9f16bbcbd796653092eca4d2f42c0218a948402c31735f59
+"dayjs@npm:^1.11.5":
+  version: 1.11.5
+  resolution: "dayjs@npm:1.11.5"
+  checksum: e3bbaa7b4883b31be4bf75a181f1447fbb19800c29b332852125aab96baeff3ac232dcba8b88c4ea17d3b636c99dac5fb9d1af4bb6ae26615698bbc4a852dffb
   languageName: node
   linkType: hard
 
@@ -729,10 +729,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^16.0.1":
-  version: 16.0.1
-  resolution: "dotenv@npm:16.0.1"
-  checksum: f459ffce07b977b7f15d8cc4ee69cdff77d4dd8c5dc8c85d2d485ee84655352c2415f9dd09d42b5b5985ced3be186130871b34e2f3e2569ebc72fbc2e8096792
+"dotenv@npm:^16.0.2":
+  version: 16.0.2
+  resolution: "dotenv@npm:16.0.2"
+  checksum: ca8f9ca2d67929c7771069f4c31b4e46b9932621009e658e5afd655dde2d69b77642bf36dbc9e72bc170523dfd908a9ee41c26f034c1fdc605ace3b1b4b10faf
   languageName: node
   linkType: hard
 
@@ -1034,10 +1034,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"helmet@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "helmet@npm:5.1.1"
-  checksum: b72ba26cc431804ad3b8ecdc18db95409a492cbb7a7e825efc27fc502b9433fec39fc083f2aad4fe7ed1a89a4287560b59f4435f9689eebbae6a2b61a1ec1b7d
+"helmet@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "helmet@npm:6.0.0"
+  checksum: 0dd89d5b77c5334e815f5d29376ca7af0ad1007136890f497be3455d9ed9734e7203e13d9931e29e4d2ced1c632c52440f16d2a02e8835fd8b8706a12052faad
   languageName: node
   linkType: hard
 
@@ -1451,11 +1451,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mongodb@npm:4.7.0":
-  version: 4.7.0
-  resolution: "mongodb@npm:4.7.0"
+"mongodb@npm:4.8.1":
+  version: 4.8.1
+  resolution: "mongodb@npm:4.8.1"
   dependencies:
-    bson: ^4.6.3
+    bson: ^4.6.5
     denque: ^2.0.1
     mongodb-connection-string-url: ^2.5.2
     saslprep: ^1.0.3
@@ -1463,22 +1463,22 @@ __metadata:
   dependenciesMeta:
     saslprep:
       optional: true
-  checksum: 6c8ddf1d14a4392d83702aa532e5a1e6deaa501cfd66e352a1226358422716e340465ca4b0f2c5d8f660bf15c06456059953fb99482f714c1dab408ecfe3aeea
+  checksum: 97ff4ebe3fde7b3b5b133d8f7a2e4d6e372c44f8223a6d40b13bb3a705bbbb48ed50958a0fc6b3a33161605723479fced8e0eb83cf7fd5271f7530e6e2d67a2d
   languageName: node
   linkType: hard
 
-"mongoose@npm:^6.4.6":
-  version: 6.4.6
-  resolution: "mongoose@npm:6.4.6"
+"mongoose@npm:^6.5.4":
+  version: 6.5.4
+  resolution: "mongoose@npm:6.5.4"
   dependencies:
-    bson: ^4.6.2
+    bson: ^4.6.5
     kareem: 2.4.1
-    mongodb: 4.7.0
+    mongodb: 4.8.1
     mpath: 0.9.0
     mquery: 4.0.3
     ms: 2.1.3
     sift: 16.0.0
-  checksum: afe568aca87fcd89b0b2fc2c9539825ceac97b3e49910bd4209a72a4628a871155724c15d420874f867985708c4c081aa0c40da97b783de6ae03661cedc87efe
+  checksum: 92cc7049a9936104205704b13241f2b0e785b49639b462eac67a4346c87464e7ed5564b7579c59ea3c237bcbe29400ec84705951ae69e05b4c8a18c3884253f1
   languageName: node
   linkType: hard
 
@@ -1920,21 +1920,21 @@ __metadata:
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.13
     "@types/morgan": ^1.9.3
-    "@types/node": ^18.0.6
+    "@types/node": ^18.7.14
     "@types/passport-google-oauth20": ^2.0.11
     concurrently: ^7.3.0
     cookie-session: ^2.0.0
     cors: ^2.8.5
-    dayjs: ^1.11.4
-    dotenv: ^16.0.1
+    dayjs: ^1.11.5
+    dotenv: ^16.0.2
     express: ^4.18.1
-    helmet: ^5.1.1
-    mongoose: ^6.4.6
+    helmet: ^6.0.0
+    mongoose: ^6.5.4
     morgan: ^1.10.0
     nodemon: ^2.0.19
     passport: ^0.5.3
     passport-google-oauth20: ^2.0.0
-    typescript: ^4.7.4
+    typescript: ^4.8.2
   languageName: unknown
   linkType: soft
 
@@ -2254,23 +2254,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.7.4":
-  version: 4.7.4
-  resolution: "typescript@npm:4.7.4"
+"typescript@npm:^4.8.2":
+  version: 4.8.2
+  resolution: "typescript@npm:4.8.2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 5750181b1cd7e6482c4195825547e70f944114fb47e58e4aa7553e62f11b3f3173766aef9c281783edfd881f7b8299cf35e3ca8caebe73d8464528c907a164df
+  checksum: 7f5b81d0d558c9067f952c7af52ab7f19c2e70a916817929e4a5b256c93990bf3178eccb1ac8a850bc75df35f6781b6f4cb3370ce20d8b1ded92ed462348f628
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.7.4#~builtin<compat/typescript>":
-  version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=7ad353"
+"typescript@patch:typescript@^4.8.2#~builtin<compat/typescript>":
+  version: 4.8.2
+  resolution: "typescript@patch:typescript@npm%3A4.8.2#~builtin<compat/typescript>::version=4.8.2&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 9096d8f6c16cb80ef3bf96fcbbd055bf1c4a43bd14f3b7be45a9fbe7ada46ec977f604d5feed3263b4f2aa7d4c7477ce5f9cd87de0d6feedec69a983f3a4f93e
+  checksum: 5cb0f02f414f5405f4b0e7ee1fd7fa9177b6a8783c9017b6cad85f56ce4c4f93e0e6f2ce37e863cb597d44227cd009474c9fbd85bf7a50004e5557426cb58079
   languageName: node
   linkType: hard
 

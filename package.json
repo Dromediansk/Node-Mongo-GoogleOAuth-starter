@@ -3,22 +3,22 @@
   "version": "1.0.0",
   "main": "server.js",
   "license": "MIT",
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "yarn@3.2.3",
   "scripts": {
-    "start:build": "tsc -w",
-    "start:run": "nodemon build/server.js",
-    "start": "concurrently \"yarn start:build\" \"yarn start:run\""
+    "dev:build": "tsc -w",
+    "dev:run": "nodemon build/server.js",
+    "dev": "concurrently \"yarn dev:build\" \"yarn dev:run\""
   },
   "dependencies": {
     "@hapi/boom": "^10.0.0",
     "concurrently": "^7.3.0",
     "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
-    "dayjs": "^1.11.4",
-    "dotenv": "^16.0.1",
+    "dayjs": "^1.11.5",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
-    "helmet": "^5.1.1",
-    "mongoose": "^6.4.6",
+    "helmet": "^6.0.0",
+    "mongoose": "^6.5.4",
     "morgan": "^1.10.0",
     "passport": "^0.5.3",
     "passport-google-oauth20": "^2.0.0"
@@ -28,9 +28,9 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/morgan": "^1.9.3",
-    "@types/node": "^18.0.6",
+    "@types/node": "^18.7.14",
     "@types/passport-google-oauth20": "^2.0.11",
     "nodemon": "^2.0.19",
-    "typescript": "^4.7.4"
+    "typescript": "^4.8.2"
   }
 }
