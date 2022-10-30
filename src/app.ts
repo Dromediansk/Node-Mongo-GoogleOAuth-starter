@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import morgan from "morgan";
 import cors from "cors";
 import helmet from "helmet";
@@ -10,7 +10,7 @@ import cookieSession from "cookie-session";
 import sanitizedConfig from "./utils/config";
 import passport from "passport";
 
-const app: Application = express();
+const app = express();
 
 app.use(morgan("combined"));
 
