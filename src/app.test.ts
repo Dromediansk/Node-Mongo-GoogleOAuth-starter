@@ -11,11 +11,27 @@ describe("GET /", () => {
   });
 });
 
-describe("route /api", () => {
+describe("/auth", () => {
+  it("should redirect to Google login", async () => {
+    const response = await request(app).get("/auth/google");
+
+    expect(response.statusCode).toBe(302);
+    expect(response.header.location).toContain(
+      "https://accounts.google.com/o/oauth2/v2/auth"
+    );
+  });
+
+  it("should redirect to / on logout", async () => {
+    const response = await request(app).get("/auth/logout");
+
+    expect(response.statusCode).toBe(302);
+    expect(response.header.location).toBe("/");
+  });
+});
+
+describe("/api", () => {
   it("should return 401 Unauthorized if user is not logged in", async () => {
-    const response = await request(app)
-      .get("/api/users")
-      .set("Cookie", "test123");
+    const response = await request(app).get("/api/users");
 
     expect(response.statusCode).toBe(401);
     expect(response.text).toContain("You must be logged in!");
