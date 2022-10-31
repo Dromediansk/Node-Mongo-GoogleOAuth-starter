@@ -1,6 +1,6 @@
-import { Schema, Document, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
-export type UserDocument = Document & {
+export type UserDocument = {
   id: string;
   googleId: string;
   email: string;

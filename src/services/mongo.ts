@@ -1,4 +1,3 @@
-import { boomify } from "@hapi/boom";
 import mongoose, { Error } from "mongoose";
 import sanitizedConfig from "../utils/config";
 
@@ -9,7 +8,7 @@ mongoose.connection.once("open", () => {
 });
 
 mongoose.connection.on("error", (err) => {
-  throw boomify(err as Error);
+  throw new Error("Connection to database failed!");
 });
 
 export const mongoConnect = async () => {

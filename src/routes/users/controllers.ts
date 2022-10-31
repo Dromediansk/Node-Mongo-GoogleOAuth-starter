@@ -1,6 +1,4 @@
-import { boomify } from "@hapi/boom";
 import { Request, Response } from "express";
-import { UserBodyType } from "../../globals/types/user";
 import Note from "../../models/note";
 import User from "../../models/user";
 
@@ -10,7 +8,9 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
     return res.json(users);
   } catch (err) {
-    throw boomify(err as Error);
+    return res.status(500).json({
+      message: "Unable to get all users!",
+    });
   }
 };
 
@@ -21,7 +21,9 @@ export const getUserById = async (req: Request, res: Response) => {
 
     return res.json(user);
   } catch (err) {
-    throw boomify(err as Error);
+    return res.status(500).json({
+      message: "Unable to get user!",
+    });
   }
 };
 
@@ -32,6 +34,8 @@ export const getUserNotesByUserId = async (req: Request, res: Response) => {
 
     return res.json(notes);
   } catch (err) {
-    throw boomify(err as Error);
+    return res.status(500).json({
+      message: "Unable to get user notes!",
+    });
   }
 };

@@ -3,7 +3,6 @@ import fs from "fs";
 import sanitizedConfig from "./utils/config";
 import app from "./app";
 import { mongoConnect } from "./services/mongo";
-import { boomify } from "@hapi/boom";
 
 const server = https.createServer(
   {
@@ -22,7 +21,7 @@ const startServer = async () => {
       console.log(`Listening on port ${PORT}...`);
     });
   } catch (err) {
-    throw boomify(err as Error);
+    throw new Error("Unable to connect to database!");
   }
 };
 

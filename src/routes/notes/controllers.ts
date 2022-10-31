@@ -1,7 +1,5 @@
 import Note from "../../models/note";
 import { Request, Response } from "express";
-import { boomify } from "@hapi/boom";
-import { Error } from "mongoose";
 import dayjs from "dayjs";
 import { NoteBodyType } from "../../globals/types/note";
 
@@ -11,7 +9,7 @@ export const getAllNotes = async (req: Request, res: Response) => {
 
     return res.json(notes);
   } catch (err) {
-    throw boomify(err as Error);
+    return res.status(500).json({ message: "Unable to get all notes!" });
   }
 };
 
@@ -22,7 +20,9 @@ export const getNoteById = async (req: Request, res: Response) => {
 
     return res.json(note);
   } catch (err) {
-    throw boomify(err as Error);
+    return res.status(500).json({
+      message: "Unable to get note!",
+    });
   }
 };
 
@@ -41,7 +41,7 @@ export const createNote = async (
     return res.json(createdNote);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ message: "Something went wrong!" });
+    return res.status(500).json({ message: "Unable to create note!" });
   }
 };
 
@@ -56,7 +56,7 @@ export const updateNote = async (req: Request, res: Response) => {
 
     return res.json(updatedNote);
   } catch (err) {
-    throw boomify(err as Error);
+    return res.status(500).json({ message: "Unable to update note!" });
   }
 };
 
@@ -67,6 +67,6 @@ export const deleteNote = async (req: Request, res: Response) => {
 
     return res.json({ ok: true });
   } catch (err) {
-    throw boomify(err as Error);
+    return res.status(500).json({ message: "Unable to delete note!" });
   }
 };

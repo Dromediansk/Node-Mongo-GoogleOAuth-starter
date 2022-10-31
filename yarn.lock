@@ -1238,22 +1238,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/boom@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "@hapi/boom@npm:10.0.0"
-  dependencies:
-    "@hapi/hoek": 10.x.x
-  checksum: ea2b234fa1c76667b73a541f51e83251233a6f1db2a3f6ade9beb5174ce0ed2b55eea4d8a2a9fd0329bba31e1969c41bdb3af9218bef3abac58a30ea28e3d43e
-  languageName: node
-  linkType: hard
-
-"@hapi/hoek@npm:10.x.x":
-  version: 10.0.0
-  resolution: "@hapi/hoek@npm:10.0.0"
-  checksum: d665c61b0a12b017ec442eea441e698c5ed0752b4f092b2494f6507da359996447113838702eb072ea161ba85cb8dbac339b6c8d65e0eab3f39aa712e4346922
-  languageName: node
-  linkType: hard
-
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.1.0
   resolution: "@istanbuljs/load-nyc-config@npm:1.1.0"
@@ -4515,7 +4499,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "node-mongo-oauth-starter@workspace:."
   dependencies:
-    "@hapi/boom": ^10.0.0
     "@types/cookie-session": ^2.0.44
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.14

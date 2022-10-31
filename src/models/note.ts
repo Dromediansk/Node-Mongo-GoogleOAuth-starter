@@ -1,9 +1,18 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
-const ObjectId = Schema.Types.ObjectId;
+export type NoteDocument = {
+  id: Types.ObjectId;
+  title: string;
+  body: string;
+  keywords: string[];
+  category: string;
+  publishedDate: string;
+  user_id: Types.ObjectId;
+  services: Types.Map<string>;
+};
 
-const noteSchema = new Schema({
-  id: { type: ObjectId },
+const noteSchema = new Schema<NoteDocument>({
+  id: { type: Schema.Types.ObjectId },
   title: {
     type: String,
     required: true,
@@ -24,7 +33,7 @@ const noteSchema = new Schema({
     required: true,
   },
   user_id: {
-    type: ObjectId,
+    type: Schema.Types.ObjectId,
     required: true,
   },
   services: {
