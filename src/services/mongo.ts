@@ -8,6 +8,7 @@ mongoose.connection.once("open", () => {
 });
 
 mongoose.connection.on("error", (err) => {
+  console.error(err);
   throw new Error("Connection to database failed!");
 });
 

@@ -8,6 +8,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
     return res.json(users);
   } catch (err) {
+    console.error(err);
     return res.status(500).json({
       message: "Unable to get all users!",
     });
@@ -21,6 +22,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
     return res.json(user);
   } catch (err) {
+    console.error(err);
     return res.status(500).json({
       message: "Unable to get user!",
     });
@@ -34,6 +36,7 @@ export const getUserNotesByUserId = async (req: Request, res: Response) => {
 
     return res.json(notes);
   } catch (err) {
+    console.error(err);
     return res.status(500).json({
       message: "Unable to get user notes!",
     });

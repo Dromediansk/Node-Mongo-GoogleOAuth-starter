@@ -9,6 +9,7 @@ import authRouter from "./routes/auth/router";
 import cookieSession from "cookie-session";
 import sanitizedConfig from "./utils/config";
 import passport from "passport";
+import { handleGeneralError } from "./utils/error";
 
 const app = express();
 
@@ -39,7 +40,13 @@ app.use("/auth", authRouter);
 app.use("/api", isAuthenticated, api);
 
 app.get("/", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "../public", "index.html"));
+  return res.sendFile(path.join(__dirname, "../public", "index.html"));
 });
+
+app.get("/*", (req: Request, res: Response) => {
+  return res.status(404).send("404. The page was not found.");
+});
+
+app.use(handleGeneralError);
 
 export default app;

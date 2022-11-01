@@ -9,6 +9,7 @@ export const getAllNotes = async (req: Request, res: Response) => {
 
     return res.json(notes);
   } catch (err) {
+    console.error(err);
     return res.status(500).json({ message: "Unable to get all notes!" });
   }
 };
@@ -20,6 +21,7 @@ export const getNoteById = async (req: Request, res: Response) => {
 
     return res.json(note);
   } catch (err) {
+    console.error(err);
     return res.status(500).json({
       message: "Unable to get note!",
     });
@@ -40,7 +42,7 @@ export const createNote = async (
 
     return res.json(createdNote);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return res.status(500).json({ message: "Unable to create note!" });
   }
 };
@@ -56,6 +58,7 @@ export const updateNote = async (req: Request, res: Response) => {
 
     return res.json(updatedNote);
   } catch (err) {
+    console.error(err);
     return res.status(500).json({ message: "Unable to update note!" });
   }
 };
@@ -67,6 +70,7 @@ export const deleteNote = async (req: Request, res: Response) => {
 
     return res.json({ ok: true });
   } catch (err) {
+    console.error(err);
     return res.status(500).json({ message: "Unable to delete note!" });
   }
 };

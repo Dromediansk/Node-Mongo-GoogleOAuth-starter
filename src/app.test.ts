@@ -37,3 +37,12 @@ describe("/api", () => {
     expect(response.text).toContain("You must be logged in!");
   });
 });
+
+describe("General error handling", () => {
+  it("should return 404 error if route does not exist", async () => {
+    const response = await request(app).get("/non-existing-path");
+
+    expect(response.statusCode).toBe(404);
+    expect(response.text).toBe("404. The page was not found.");
+  });
+});
