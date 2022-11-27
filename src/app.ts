@@ -40,11 +40,11 @@ app.use("/auth", authRouter);
 app.use("/api", isAuthenticated, api);
 
 app.get("/", (req: Request, res: Response) => {
-  return res.sendFile(path.join(__dirname, "../public", "index.html"));
+  res.sendFile(path.join(__dirname, "../public", "index.html"));
 });
 
 app.get("/*", (req: Request, res: Response) => {
-  return res.status(404).send("404. The page was not found.");
+  res.status(404).send("404. The page was not found.");
 });
 
 app.use(handleGeneralError);
