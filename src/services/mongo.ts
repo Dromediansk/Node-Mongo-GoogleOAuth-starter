@@ -13,6 +13,7 @@ mongoose.connection.on("error", (err) => {
 });
 
 export const mongoConnect = async () => {
+  mongoose.set("strictQuery", false);
   await mongoose.connect(MONGO_URI);
 };
 
