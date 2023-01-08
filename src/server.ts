@@ -1,16 +1,9 @@
-import https from "https";
-import fs from "fs";
+import http from "http";
 import sanitizedConfig from "./utils/config";
 import app from "./app";
 import { mongoConnect } from "./services/mongo";
 
-const server = https.createServer(
-  {
-    key: fs.readFileSync("key.pem"),
-    cert: fs.readFileSync("cert.pem"),
-  },
-  app
-);
+const server = http.createServer(app);
 
 const PORT = sanitizedConfig.PORT;
 const startServer = async () => {
