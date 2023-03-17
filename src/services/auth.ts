@@ -7,7 +7,7 @@ import {
   Profile,
   VerifyCallback,
 } from "passport-google-oauth20";
-import User, { UserDocument } from "../models/user";
+import User from "../models/user";
 import sanitizedConfig from "../utils/config";
 
 /**
@@ -20,35 +20,28 @@ const verifyCallback = async (
   profile: Profile,
   done: VerifyCallback
 ) => {
-  User.findOne(
-    { googleId: profile.id },
-    async (err: Error, user: UserDocument) => {
-      if (err) {
-        return done(err);
-      }
-
-      if (user) {
-        return done(null, user);
-      }
-
-      try {
-        const newUser = new User({
-          googleId: profile.id,
-          familyName: profile.name?.familyName || "",
-          givenName: profile.name?.givenName || "",
-          email: profile.emails ? profile.emails[0].value : "",
-        });
-        await newUser.save();
-
-        return done(null, newUser);
-      } catch (error) {
-        if (error instanceof Error) {
-          return done(error);
-        }
-        console.log(error);
-      }
+  User.findOne({ googleId: profile.id }).then((user) => {
+    if (user) {
+      return done(null, user);
     }
-  );
+
+    try {
+      const newUser = new User({
+        googleId: profile.id,
+        familyName: profile.name?.familyName || "",
+        givenName: profile.name?.givenName || "",
+        email: profile.emails ? profile.emails[0].value : "",
+      });
+      newUser.save();
+
+      return done(null, newUser);
+    } catch (error) {
+      if (error instanceof Error) {
+        return done(error);
+      }
+      console.log(error);
+    }
+  });
 };
 
 const AUTH_OPTIONS: StrategyOptions = {
@@ -65,7 +58,9 @@ passport.serializeUser((user, done) => {
 
 // Read the session from the cookie
 passport.deserializeUser((id, done) => {
-  User.findById(id, (err: Error, user: UserDocument) => done(err, user));
+  User.findById(id)
+    .then((user) => done(null, user))
+    .catch((err) => done(err));
 });
 
 export const isAuthenticated = (

@@ -19,7 +19,7 @@ const userSchema = new Schema<UserDocument>({
   },
   familyName: {
     type: String,
-    required: true,
+    required: false,
   },
   givenName: {
     type: String,
